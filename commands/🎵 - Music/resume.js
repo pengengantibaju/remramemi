@@ -1,8 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 
-const nama = 'Kiryuu Music'
-const footer = 'Coded by Aesir#4444'
-const icon = 'https://cdn.discordapp.com/attachments/973374918894968902/984581064863395900/Logo_New_512.png'
+const nama = 'Chill Music'
+const footer = 'Chill Vibes'
+const icon = 'https://media.discordapp.net/attachments/967102733335265310/967103637753049088/e8c00e3b01aad72fa87271aa95816689.jpg'
 
 module.exports = {
     name: "resume",
