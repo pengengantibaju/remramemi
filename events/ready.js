@@ -3,10 +3,9 @@ const client = require("../index");
 client.on("ready", () => {
     console.log("\x1b[34m%s\x1b[0m", `${client.user.tag} Online!`)
     const statuses = [ // status bot
-        "Kiryuu ID",
+        "Emi / Slash command",
         `${client.guilds.cache.size} Server`,
-        `${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)} Reader`,
-        "k1 / Slash command"
+        `${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)} Reader`
     ]
     let index = 0
     setInterval(() => {
