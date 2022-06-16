@@ -1,8 +1,12 @@
 const { MessageEmbed } = require('discord.js');
 
+const nama = 'Chill Music'
+const footer = 'Chill Vibes'
+const icon = 'https://media.discordapp.net/attachments/967102733335265310/967103637753049088/e8c00e3b01aad72fa87271aa95816689.jpg'
+
 module.exports = {
     name: 'stop',
-    description: 'Stop the current song and leave the voice channel.',
+    description: 'Berhenti dan meninggalkan Voice Channel.',
     aliases: ['leave', 'disconnect', 'dc'],
     category: '🎵 - Music',
     usage: '',
@@ -10,18 +14,26 @@ module.exports = {
     run: async (client, message, args) => {
         const queue = await client.distube.getQueue(message.guild.id);
         const voiceChannel = message.member.voice.channel;
-        if(!voiceChannel) return message.reply({embeds: [
+        if(!voiceChannel) return message.channel.send({embeds: [
             new MessageEmbed()
             .setColor('RED')
-            .setDescription(`🚫 | You need to join a voice channel to use this feature.`)
-        ]});
+			.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`🚫 | Anda harus berada di voice channel untuk menggunakan fitur ini.`)
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 5000)
+  });
         if(queue) {
             if(message.guild.me.voice.channelId !== message.member.voice.channelId) {
-                return message.reply({embeds: [
+                return message.channel.send({embeds: [
                     new MessageEmbed()
                     .setColor('RED')
-                    .setDescription(`🚫 | You need to be on the same voice channel as the bot!`)
-                ]});
+					.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+                    .setDescription(`🚫 | Anda harus berada di voice channel yang sama dengan bot!`)
+					.setFooter(`${footer}`)
+                ]}).then(msg => {
+    setTimeout(() => msg.delete(), 5000)
+  });
             }
         }
         
@@ -29,9 +41,12 @@ module.exports = {
         client.distube.voices.leave(message);
         message.channel.send({embeds: [
             new MessageEmbed()
-            .setColor('EF4F4F')
-            .setAuthor({name: 'Disconnect', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription('Disconnected from voice channel!')
-        ]});
+            .setColor('#000008')
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription('Meninggalkan Voice Channel!')
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 8000)
+  });
     }
 }

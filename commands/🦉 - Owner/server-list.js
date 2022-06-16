@@ -4,15 +4,15 @@ module.exports = {
     name: 'serverlist',
     aliases: ['sl'],
     category: '🦉 - Owner',
-    usage: 'd!serverlist',
-    description: 'Show bots server list',
+    usage: 'k2!serverlist',
+    description: 'Tampilkan daftar server bot',
 
     run: async(client, message, args) => {
         if(message.author.id != '570589477920309259') {
             message.reply({embeds: [
                 new MessageEmbed()
                 .setColor('RED')
-                .setDescription('🚫 | You are not authorized to perform this action!')
+                .setDescription('🚫 | Hanya Nanda#1234 yang bisa menggunakan command ini!')
             ]})
         } else {
             const guilds = client.guilds.cache
@@ -25,7 +25,7 @@ module.exports = {
 
             const embed = new MessageEmbed()
             .setColor('#ccff48')
-            .setTitle(`List of bot's servers(${client.guilds.cache.size} server)`)
+            .setTitle(`Daftar server bot (${client.guilds.cache.size} server)`)
             .setDescription(description)
 
             message.channel.send({ embeds: [embed]})

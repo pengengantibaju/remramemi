@@ -12,13 +12,13 @@ module.exports = {
             return message.reply({embeds: [
                 new MessageEmbed()
                 .setColor('#ff0000')
-                .setDescription('You are not authorized to execute this command!')
+                .setDescription('Hanya Nanda#1234 yang bisa menggunakan command ini!')
             ]})
         } else {
             const embed = new MessageEmbed()
             .setColor('#ccff48')
-            .setAuthor({name: 'Restart...', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription(` \`\`\`md\n#Rebooting ${client.user.tag}...\nThis process will take about 1 minute\`\`\``)
+            .setAuthor({name: 'Reboot', iconURL: 'https://cdn.discordapp.com/icons/944440125327298610/a_9cafd6627815a54b022594fde169f8c4.gif?'})
+            .setDescription(` \`\`\`md\n#Memulai ulang ${client.user.tag}...\nProses ini akan memakan waktu sekitar 1 menit\`\`\``)
             message.reply({embeds: [embed]})
             try {
                 process.exit()
@@ -27,7 +27,7 @@ module.exports = {
                 message.reply({embeds: [
                     new MessageEmbed()
                     .setColor('#ff0000')
-                    .setDescription(`Error! An error occurred. Please try again later ${e}!`)
+                    .setDescription(`Kesalahan! Terjadi kesalahan. Coba lagi nanti ${e}!`)
                 ]})
             }
         }

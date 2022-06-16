@@ -5,14 +5,14 @@ module.exports = {
     name: "eval",
     aliases: ["ev", "e"],
     category: "🦉 - Owner",
-    description: "Implement a piece of your code",
+    description: "Terapkan sepotong kode Anda",
     usage: "eval <code>",
     run: async (client, message, args) => {
         if(message.author.id != '570589477920309259') {
             return message.reply({embeds: [
                 new MessageEmbed()
                 .setColor('RED')
-                .setDescription('🚫 | Only Nanda#1234 has permission to run this command!')
+                .setDescription('🚫 | Hanya Nanda#1234 yang bisa menggunakan command ini!')
             ]})
         };
 
@@ -22,7 +22,7 @@ module.exports = {
         if(!code) return message.reply({embeds: [
             new MessageEmbed()
             .setColor('RED')
-            .setDescription('🚫 | You have not entered the code!')
+            .setDescription('🚫 | Anda belum memasukkan kode!')
         ]});
 
         if (message.author.id == '570589477920309259') {
@@ -38,8 +38,8 @@ module.exports = {
                 .setAuthor({name: '🦉 - Eval', iconURL: message.author.avatarURL()})
                 .addField('**Input**', `\`\`\`js\n${code}\`\`\``, false)
                 .addField('**Output**', `\`\`\`js\n${output}\`\`\``, false)
-                .addField('**Datatypes**', `\`\`\`js\n${typeof result}\`\`\``, false)
-                .addField('**The command is executed in**', `\`\`\`diff\n${difference[0] > 0 ? `${difference[0]}s ` : ""}${difference[1] / 1e6}ms\`\`\``, false)
+                .addField('**Tipe Data**', `\`\`\`js\n${typeof result}\`\`\``, false)
+                .addField('**Perintah dijalankan di**', `\`\`\`diff\n${difference[0] > 0 ? `${difference[0]}s ` : ""}${difference[1] / 1e6}ms\`\`\``, false)
 
                 message.reply({embeds: [embed]})
             } catch (e) {
@@ -47,7 +47,7 @@ module.exports = {
                 return message.reply({embeds: [
                     new MessageEmbed()
                     .setColor('RED')
-                    .setDescription('Lỗi: ' + e)
+                    .setDescription('Kesalahan: ' + e)
                 ]})
             }
         }

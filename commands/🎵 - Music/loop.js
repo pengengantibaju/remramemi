@@ -1,10 +1,14 @@
 const { MessageEmbed } = require('discord.js');
 
+const nama = 'Chill Music'
+const footer = 'Chill Vibes'
+const icon = 'https://media.discordapp.net/attachments/967102733335265310/967103637753049088/e8c00e3b01aad72fa87271aa95816689.jpg'
+
 module.exports = {
     name: "loop",
     aliases: ["repeat"],
     category: "🎵 - Music",
-    description: "Loop the current song.",
+    description: "Loop Musik.",
     usage: "loop",
 
     run: async (client, message, args) => {
@@ -13,21 +17,30 @@ module.exports = {
         if(!voiceChannel) return message.reply({embeds: [
             new MessageEmbed()
             .setColor('RED')
-            .setDescription(`🚫 | You need to join a voice channel to use this feature.`)
-        ]});
+			.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`🚫 | Anda harus berada di voice channel untuk menggunakan fitur ini.`)
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 10000)
+  });
         if(!queue) return message.reply({embeds: [
             new MessageEmbed()
             .setColor('EF4F4F')
-            .setAuthor({name: 'Error', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription('No songs are playing!')
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription('Tidak ada lagu yang diputar!')
+			.setFooter(`${footer}`)
         ]})
         if(queue) {
             if(message.guild.me.voice.channelId !== message.member.voice.channelId) {
                 return message.reply({embeds: [
                     new MessageEmbed()
                     .setColor('RED')
-                    .setDescription(`🚫 | You need to be on the same voice channel as the bot!`)
-                ]});
+					.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+                    .setDescription(`🚫 | Anda harus berada di voice channel yang sama dengan bot!`)
+					.setFooter(`${footer}`)
+                ]}.then(msg => {
+    setTimeout(() => msg.delete(), 10000)
+  }));
             }
         }
 
@@ -37,12 +50,15 @@ module.exports = {
             message.reply({embeds: [
                 new MessageEmbed()
                 .setColor('EF4F4F') 
-                .setAuthor({name: 'Error', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-                .setDescription('You must choose 1 option!')
-                .addField('off', 'Stop repeating the song.', true)
-                .addField('song', 'Repeat current song.', true)
-                .addField('queue', 'Repeat all songs in the queue.', true)
-            ]})
+                .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription('Anda harus memilih 1 opsi!')
+			.setFooter(`${footer}`)
+                .addField('Off', 'Menonaktifkan Loop.', true)
+                .addField('Song', 'Loop lagu saat ini.', true)
+                .addField('Queue', 'Loop semua lagu dalam daftar putar.', true)
+            ]}).then(msg => {
+    setTimeout(() => msg.delete(), 10000)
+  })
         }
 
         switch (args[0]) {
@@ -57,12 +73,15 @@ module.exports = {
             break
         }
         mode = queue.setRepeatMode(mode)
-        mode = mode ? (mode === 2 ? 'Repeat playlist' : 'Repeat the song') : 'Turn off'
-        message.reply({embeds: [
+        mode = mode ? (mode === 2 ? 'Queue' : 'Song') : 'Off'
+        message.channel.send({embeds: [
             new MessageEmbed()
-            .setColor('#ccff48')
-            .setAuthor({name: 'Repeat', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription(`Adjusted the repeat mode to **${mode}**!`)
-        ]})
+            .setColor('#000008')
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`Loop **${mode}**!`)
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 5000)
+  })
     }
 }

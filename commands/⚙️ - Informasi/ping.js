@@ -3,7 +3,7 @@ const { MessageEmbed, Client, version } = require("discord.js");
 module.exports = {
     name: "ping",
     aliases: [' '],
-    category: '⚙️ - Information',
+    category: '⚙️ - Informasi',
     description: 'Ping bot',
     /**
      *
@@ -17,6 +17,11 @@ module.exports = {
         {
           name: ":robot: Client",
           value: `┕🟢 Online! <t:${parseInt(client.readyTimestamp /1000)}:R>`,
+          inline: true,
+        },
+		{
+          name: ":eyes: Server",
+          value: `┕${client.guilds.cache.size} Server`,
           inline: true,
         },
         {
@@ -47,8 +52,11 @@ module.exports = {
             inline: true,
           },
       )
-      .setColor('#ccff48')
+      .setColor('#000008')
+	  .setFooter('Chill Vibes')
   
-      message.reply({ embeds: [statsembed]});
+      message.channel.send({ embeds: [statsembed]}).then(msg => {
+    setTimeout(() => msg.delete(), 30000)
+  });
     },
 };

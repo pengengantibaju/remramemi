@@ -24,11 +24,11 @@ module.exports = async (client) => {
         }
 
         if (!file.name) 
-            return Table_command.addRow(file.name,`🔶 ERROR IN COMMAND NAME(NAME)`)
+            return Table_command.addRow(file.name,`🔶 KESALAHAN COMMAND(NAME)`)
         if (!file.description)
-            return Table_command.addRow(file.name,`🔶 ERROR IN DISTRIBUTION(DESCRIPTION)`)
+            return Table_command.addRow(file.name,`🔶 KESALAHAN DESKRIPSI(DESCRIPTION)`)
 
-        Table_command.addRow(file.name,`🔷 SUCCESSFUL`)
+        Table_command.addRow(file.name,`🔷 BERHASIL`)
     });
 
     console.log(Table_command.toString())
@@ -55,11 +55,11 @@ module.exports = async (client) => {
         arrayOfSlashCommands.push(file);
 
         if (!file.name) 
-            return Table_slash.addRow(file.name,`🔶 ERROR IN COMMAND NAME(NAME)`)
+            return Table_slash.addRow(file.name,`🔶 KESALAHAN COMMAND(NAME)`)
         if (!file.description)
-            return Table_slash.addRow(file.name,`🔶 ERROR IN DISTRIBUTION(DESCRIPTION)`)
+            return Table_slash.addRow(file.name,`🔶 KESALAHAN DESKRIPSI(DESCRIPTION)`)
 
-        Table_slash.addRow(file.name,`🔷 SUCCESSFUL`)
+        Table_slash.addRow(file.name,`🔷 SUKSES`)
     });
 
     console.log(Table_slash.toString())

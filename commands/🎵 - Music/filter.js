@@ -1,10 +1,15 @@
 const { MessageEmbed } = require('discord.js');
 
+
+const nama = 'Kiryuu Music'
+const footer = 'Coded by Aesir#4444'
+const icon = 'https://cdn.discordapp.com/attachments/973374918894968902/984581064863395900/Logo_New_512.png'
+
 module.exports = {
     name: "filter",
     aliases: ["filter"],
     category: "🎵 - Music",
-    description: "Filter the queue.",
+    description: "Filter Queue.",
     usage: "",
     run: async (client, message, args) => {
         const queue = await client.distube.getQueue(message.guild.id);
@@ -12,46 +17,66 @@ module.exports = {
         if(!voiceChannel) return message.reply({embeds: [
             new MessageEmbed()
             .setColor('RED')
-            .setDescription(`🚫 |You need to join a voice channel to use this feature.`)
-        ]});
+			.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`🚫 | Anda harus berada di voice channel untuk menggunakan fitur ini.`)
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 10000)
+  });
         if(!queue) return message.reply({embeds: [
             new MessageEmbed()
             .setColor('EF4F4F')
-            .setAuthor({name: 'Error', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription('No songs are playing!')
-        ]})
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription('Tidak ada lagu yang diputar!')
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 10000)
+  })
         if(queue) {
             if(message.guild.me.voice.channelId !== message.member.voice.channelId) {
                 return message.reply({embeds: [
                     new MessageEmbed()
                     .setColor('RED')
-                    .setDescription(`🚫 | You need to be on the same voice channel as the bot!`)
-                ]});
+					.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+                    .setDescription(`🚫 | Anda harus berada di voice channel yang sama dengan bot!`)
+					.setFooter(`${footer}`)
+                ]}).then(msg => {
+    setTimeout(() => msg.delete(), 10000)
+  });
             }
         }
 
         if(!args[0]) return message.reply({embeds: [
             new MessageEmbed()
             .setColor('EF4F4F')
-            .setAuthor({name: 'Error', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription(`Please choose a suitable filter!
-            List of filters: 3d, bassboost, echo, karaoke, nightcore, vaporwave, flanger, gate, haas, reverb, surround, mcompand, phaser, tremolo, earwax`)
-        ]})
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`Silakan pilih filter yang sesuai!
+            Filter yang tersedia: 3d, bassboost, echo, karaoke, nightcore, vaporwave, flanger, gate, haas, reverb, surround, mcompand, phaser, tremolo, earwax`)
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 20000)
+  })
 
         if(args[0] === 'off' && queue.filter?.length) queue.setFilter(false);
         else if(Object.keys(client.distube.filters).includes(args[0])) queue.setFilter(args[0]);
         else if(args[0]) return message.reply({embeds: [
             new MessageEmbed()
             .setColor('EF4F4F')
-            .setAuthor({name: 'Error', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription('No matching filters found!')
-        ]})
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription('Tidak ditemukan filter yang cocok!')
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 10000)
+  })
 
-        message.reply({embeds: [
+        message.channel.send({embeds: [
             new MessageEmbed()
-            .setColor('#ccff48')
-            .setAuthor({name: 'Filter', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription(`Changed the filter to: **${queue.filters.join(', ') || 'Off'}**`)
-        ]})
+            .setColor('#000008')
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`Filter: **${queue.filters.join(', ') || 'Off'}**`)
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 5000)
+  })
     }
 }

@@ -1,11 +1,15 @@
 // const player = require('../../client/player.js');
 const { MessageEmbed } = require('discord.js');
 
+const nama = 'Chill Music'
+const footer = 'Chill Vibes'
+const icon = 'https://media.discordapp.net/attachments/967102733335265310/967103637753049088/e8c00e3b01aad72fa87271aa95816689.jpg'
+
 module.exports = {
     name: 'play',
-    description: 'Play a song from YouTube, SoundCloud, Spotify, Mixer, Twitch, Bandcamp, or a direct link.',
+    description: 'Putar lagu YouTube, SoundCloud, Spotify, Mixer, Twitch, Bandcamp, atau Link.',
     aliases: ['p'],
-    usage: '<song name>',
+    usage: '<judul lagu>',
     category: '🎵 - Music',
     cooldown: 0,
     guildOnly: true,
@@ -14,31 +18,41 @@ module.exports = {
         const string = args.join(' ')
         const queue = await client.distube.getQueue(message.guild.id);
         const voiceChannel = message.member.voice.channel;
-        if(!voiceChannel) return message.reply({embeds: [
+        if(!voiceChannel) return message.channel.send({embeds: [
             new MessageEmbed()
             .setColor('RED')
-            .setDescription(`🚫 | You need to join a voice channel to use this feature.`)
-        ]});
+			.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`🚫 | Anda harus berada di voice channel untuk menggunakan fitur ini.`)
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 8000)
+  });
 
         if(queue) {
             if(message.guild.me.voice.channelId !== message.member.voice.channelId) {
-                return message.reply({embeds: [
+                return message.channel.send({embeds: [
                     new MessageEmbed()
                     .setColor('RED')
-                    .setDescription(`🚫 | You need to be on the same voice channel as the bot!`)
-                ]});
+					.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+                    .setDescription(`🚫 | Anda harus berada di voice channel yang sama dengan bot!`)
+					.setFooter(`${footer}`)
+                ]}).then(msg => {
+    setTimeout(() => msg.delete(), 8000)
+  });
             }
         }
-
-        const msg = await message.reply({embeds: [
+/*
+        const msg = await message.channel.send({embeds: [
             new MessageEmbed()
-            .setColor('#ccff48')
-            .setAuthor({name: 'Search', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription(`🎵 | Searching...`)
-        ]})
-
-        setTimeout(() => msg.delete() , 5000);
-
+            .setColor('#000008')
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`🎵 | Mencari...`)
+			.setFooter(`Coded by Aesir#4444`)
+			.setFooter(`${footer}`)
+        ]}) .then(msg => {
+    setTimeout(() => msg.delete(), 8000)
+  })
+*/
         client.distube.play(voiceChannel, string, {
             member: message.member,
             textChannel: message.channel,

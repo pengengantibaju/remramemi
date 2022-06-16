@@ -1,50 +1,67 @@
 const { MessageEmbed } = require('discord.js');
 
+const nama = 'Chill Music'
+const footer = 'Chill Vibes'
+const icon = 'https://media.discordapp.net/attachments/967102733335265310/967103637753049088/e8c00e3b01aad72fa87271aa95816689.jpg'
+
 module.exports = {
     name: "volume",
     aliases: ["vol"],
     category: "🎵 - Music",
-    description: "Changes the volume of the current song.",
+    description: "Mengatur volume.",
     usage: "<volume>",
     run: async (client, message, args) => {
         const queue = await client.distube.getQueue(message.guild.id);
         const voiceChannel = message.member.voice.channel;
-        if(!voiceChannel) return message.reply({embeds: [
+        if(!voiceChannel) return message.channel.send({embeds: [
             new MessageEmbed()
             .setColor('RED')
-            .setDescription(`🚫 | You need to join a voice channel to use this feature.`)
+			.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`🚫 | Anda harus berada di voice channel untuk menggunakan fitur ini.`)
+			.setFooter(`${footer}`)
         ]});
-        if(!queue) return message.reply({embeds: [
+        if(!queue) return message.channel.send({embeds: [
             new MessageEmbed()
             .setColor('EF4F4F')
-            .setAuthor({name: 'Error', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription('No songs are playing!')
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription('Tidak ada lagu yang diputar!')
+			.setFooter(`${footer}`)
         ]})
         if(queue) {
             if(message.guild.me.voice.channelId !== message.member.voice.channelId) {
-                return message.reply({embeds: [
+                return message.channel.send({embeds: [
                     new MessageEmbed()
                     .setColor('RED')
-                    .setDescription(`🚫 | You need to be on the same voice channel as the bot!`)
-                ]});
+					.setAuthor({name: `${nama}`, iconURL: `${icon}`})
+                    .setDescription(`🚫 | Anda harus berada di voice channel yang sama dengan bot!`)
+					.setFooter(`${footer}`)
+                ]}).then(msg => {
+    setTimeout(() => msg.delete(), 7000)
+  });
             }
         }
 
-        if (!args[0]) return message.reply({embeds: [
+        if (!args[0]) return message.channel.send({embeds: [
             new MessageEmbed()
             .setColor('EF4F4F')
-            .setAuthor({name: 'Error', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription('You have not entered a number to change the volume!')
-        ]});
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription('Anda belum memasukkan nomor untuk mengubah volume!')
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 7000)
+  });
 
         const volume = parseInt(args[0]);
         queue.setVolume(volume);
 
-        message.reply({embeds: [
+        message.channel.send({embeds: [
             new MessageEmbed()
-            .setColor('#ccff48')
-            .setAuthor({name: 'Change the volume', iconURL: 'https://raw.githubusercontent.com/SudhanPlayz/Discord-MusicBot/master/assets/logo.gif'})
-            .setDescription(`Changed the volume to **${volume}%**`)
-        ]})
+            .setColor('#000008')
+            .setAuthor({name: `${nama}`, iconURL: `${icon}`})
+            .setDescription(`Volume **${volume}%**`)
+			.setFooter(`${footer}`)
+        ]}).then(msg => {
+    setTimeout(() => msg.delete(), 5000)
+  })
     }
 }

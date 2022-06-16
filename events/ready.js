@@ -1,13 +1,12 @@
 const client = require("../index");
 
 client.on("ready", () => {
-    console.log("\x1b[34m%s\x1b[0m", `${client.user.tag} ready to work!`)
+    console.log("\x1b[34m%s\x1b[0m", `${client.user.tag} Online!`)
     const statuses = [ // status bot
-        "Emi /m ",
-        `🏓Ping: ${client.ws.ping}ms!`,
-        `with ${client.guilds.cache.size} server`,
-        `with ${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)} user`,
-        "Creator Nanda#1234"
+        "Kiryuu ID",
+        `${client.guilds.cache.size} Server`,
+        `${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)} Reader`,
+        "k1 / Slash command"
     ]
     let index = 0
     setInterval(() => {
@@ -18,5 +17,5 @@ client.on("ready", () => {
             browser: "DISCORD IOS"
         })
         index++
-    }, 10000)
+    }, 7000)
 })

@@ -4,6 +4,7 @@ const client = new Client({
     intents: 32767,
      ws: { properties: { $browser: "Discord iOS" } }
 });
+
 module.exports = client;
 
 // Global Variables
@@ -25,4 +26,4 @@ process.on("uncaughtException", (err, origin) => {
     console.log(err, origin)
 })
 
-client.login(client.config.token);
+client.login(client.config.token || prosess.env.token);
